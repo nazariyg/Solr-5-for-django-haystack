@@ -1,6 +1,6 @@
 As of 2.0 version of `django-haystack`, the compatibility layer with Solr backend lacks support for the newest 5.* version of Solr out of the box. But the two can still happily work together with a few bits of extra configuration. Here you can find steps for doing just that.
 
-*You can skip the first step if you already have your Solr-as-a-**service** installed.*
+You can skip the first step if you already have your Solr-as-a-**service** installed.
 
 ### Install Solr as a service
 
@@ -59,7 +59,7 @@ python manage.py build_solr_schema --filename=/var/solr/data/<core_name>/conf/sc
 ```
 
 * As before, change `<core_name>` to your Solr core's name.
-* You will likely need to change the permissions on `/var/solr/data/<core_name>` to more liberal for this to work.
+* You will likely need to change the permissions on `/var/solr/data/<core_name>` to more liberal ones for the above line to execute.
 
 ### Fix `pysolr.py` if needed
 
