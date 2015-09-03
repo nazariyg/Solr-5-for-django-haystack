@@ -27,7 +27,7 @@ sudo su - solr -c '/opt/solr/bin/solr create -c <core_name> -d basic_configs'
 
 ### 3. Override `django-haystack` default template for `schema.xml`
 
-* Grab `solr.xml` file in this repository and put it into your Django project where `django-haystack` will be able to locate the template, such as:
+* Grab `solr.xml` file from this repository and put it into your Django project where `django-haystack` will be able to locate the template, such as:
 
 ```
 <project_name>/templates/search_configuration/solr.xml
