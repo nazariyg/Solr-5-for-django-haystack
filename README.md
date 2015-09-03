@@ -34,7 +34,7 @@ sudo su - solr -c '/opt/solr/bin/solr create -c <core_name> -d basic_configs'
 ```
 
 * `solr.xml` is how `django-haystack` likes to call `schema.xml` templates.
-* You can see the `django-haystack`-specific config near the top of the template, so if you ever need to use *another* initial template, make sure to remove from it the two declarations for `<field name="id" ...` and for `<uniqueKey>` (and probably `<solrQueryParser defaultOperator ...`, if any) as these will be declared by the `django-haystack`-specific config and copy the `django-haystack`-specific config into the same spot in your own template.
+* You can see the `django-haystack`-specific config near the top of the template, so if you ever need to use *another* initial template, make sure to remove from it the two declarations for `<field name="id" ...` and for `<uniqueKey>` as these will be declared by the `django-haystack`-specific config and copy the `django-haystack`-specific config into the same spot in your own template.
 
 ### 4. Fine-tune `django-haystack` settings
 
