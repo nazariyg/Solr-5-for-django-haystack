@@ -17,7 +17,7 @@ sudo bash ./install_solr_service.sh solr-<version>.tgz
 
 ### 2. Create a non-schemaless Solr core
 
-* `django-haystack` currently only supports Solr indexes based on a schema, which is stored in `schema.xml` file of a Solr core, so create a core from the non-schemaless configuration called "basic_configs" and predefined in the Solr's installation:
+* `django-haystack` currently only supports Solr indexes based on a schema, which is stored in `schema.xml` file of a Solr core's config, so create a core from the schema-based configuration that is called "basic_configs" and is predefined in the Solr's installation:
 
 ```sh
 sudo su - solr -c '/opt/solr/bin/solr create -c <core_name> -d basic_configs'
