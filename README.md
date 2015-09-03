@@ -69,4 +69,16 @@ python manage.py build_solr_schema --filename=/var/solr/data/<core_name>/conf/sc
 <virtual_environment_dir>/lib/python<python_version>/site-packages/pysolr.py
 ```
 
-and change `if response.startswith('<?xml'):` (line 445) to `if response.startswith(b'<?xml'):`
+and change
+
+```
+if response.startswith('<?xml'):
+```
+
+on line 445 to
+
+```
+if response.startswith(b'<?xml'):
+```
+
+or better yet, make a pull request.
