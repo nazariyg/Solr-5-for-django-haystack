@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!--
- ########
+########
 
- This is the default schema taken from Solr v5.2.1 "basic_configs" and
- amended with django-haystack specifics from the template in
- haystack/templates/search_configuration/solr.xml
+This is the default schema taken from Solr v5.2.1 "basic_configs" in
+<solr_dir>/server/solr/configsets/basic_configs
+and amended with django-haystack specifics from the template in
+haystack/templates/search_configuration/solr.xml
 
- ########
- -->
+########
+-->
 
 <!--
  Licensed to the Apache Software Foundation (ASF) under one or more
