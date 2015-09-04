@@ -3,7 +3,7 @@
 <!--
 ########
 
-This is the default schema taken from Solr v5.2.1 "basic_configs" in
+This is the default schema taken from Solr v5.3.0 "basic_configs" in
 <solr_dir>/server/solr/configsets/basic_configs
 and amended with django-haystack specifics from the template in
 haystack/templates/search_configuration/solr.xml
