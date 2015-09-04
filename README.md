@@ -5,7 +5,7 @@ You can skip the first step if you already have your Solr-as-a-**service** insta
 ### 1. Install Solr as a service
 
 * Install Java if needed.
-* Download the `.tgz` file from [Solr Releases](http://www.us.apache.org/dist/lucene/solr/).
+* Download the `solr-<version>.tgz` file from [Solr Releases](http://www.us.apache.org/dist/lucene/solr/).
 * Extract the installation script from the archive and run it:
 
 ```sh
