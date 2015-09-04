@@ -1,6 +1,6 @@
 As of 2.0 version of [`django-haystack`](https://github.com/django-haystack/django-haystack), the compatibility layer with Solr backend lacks support for the newest 5.* versions of Solr out of the box. But the two can still happily work together with a few bits of extra configuration.
 
-You just need to tell Solr to lay out the config for your Solr index in the olden way, without that fancy data-driven schemaless mode that is being pushed on you by default. Schemaless mode has some considerable [downsides](http://www.slideshare.net/lucenerevolution/schemaless-solr-and-the-solr-schema-rest-api/12) anyways and won't let you add for example `solr.PhoneticFilterFactory` analyzer to one of your field types as explicitly if you ever decide that you need one.
+You just need to tell Solr to lay out the config for your Solr index in the olden way, without that fancy data-driven schemaless mode that is being pushed on you by default. Schemaless mode has some considerable [downsides](http://www.slideshare.net/lucenerevolution/schemaless-solr-and-the-solr-schema-rest-api/12) anyways and won't let you add for example `solr.PhoneticFilterFactory` analyzer to one of your field types as explicitly if you ever decide that you need one. Not to mention that, in the schemaless mode, all fields are suddenly multi-valued.
 
 You can skip the first step if you already have your Solr-as-a-**service** installed.
 
@@ -36,6 +36,7 @@ sudo su - solr -c '/opt/solr/bin/solr create -c <core_name> -d basic_configs'
 ```
 
 * `solr.xml` is how `django-haystack` likes to call `schema.xml` templates.
+* Now you can use analyzers of your preference by modifying the template.
 * You can see the `django-haystack`-specific config near the top of the template, so if you ever need to use *another* initial template, make sure to remove from your template the declarations for `<field name="id" ...` and for `<uniqueKey>` as these will be declared by the `django-haystack`-specific config and copy the `django-haystack`-specific config into the same spot in your template.
 
 ### 4. Fine-tune `django-haystack` settings
@@ -65,7 +66,7 @@ python manage.py build_solr_schema --filename=/var/solr/data/<core_name>/conf/sc
 
 ### 6. Fix `pysolr.py` if needed
 
-* If you are in 2015 and using some 3.2+ version of `pysolr` for `django-haystack`, there is a tiny bug in `pysolr` that still isn't fixed, so if you are getting an exception from `pysolr.py` about an argument in `startswith` not being a binary string then, assuming your are running Django in its own virtual environment as you should, you would need to open
+* If you are in 2015 and using some ~3.2 version of `pysolr` for `django-haystack`, there is a tiny bug in `pysolr` that still isn't fixed, so if you are getting an exception from `pysolr.py` about an argument in `startswith` not being a binary string then, assuming your are running Django in its own virtual environment as you should, you would need to open
 
 ```
 <virtual_environment_dir>/lib/python<python_version>/site-packages/pysolr.py
