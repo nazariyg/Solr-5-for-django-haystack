@@ -52,7 +52,7 @@ HAYSTACK_CONNECTIONS = {
 }
 ```
 
-### 5. Make it easy to build Solr schema
+### 5. Make it easy to rebuild Solr schema
 
 * There is no need for manual `schema.xml` copying and Solr restarting whenever you rebuild your schema for `django-haystack` as the schema can be put directly into the core's config and the core can then be reloaded, which is way faster than restarting the entire server, all with a single command:
 
