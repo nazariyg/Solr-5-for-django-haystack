@@ -1,4 +1,6 @@
-As of 2.0 version of [`django-haystack`](https://github.com/django-haystack/django-haystack), the compatibility layer with Solr backend lacks support for the newest 5.* versions of Solr out of the box. But the two can still happily work together with a few bits of extra configuration. You just need to tell Solr to lay out your index in the olden way, without those fancy data-driven schemaless wonders that are being pushed on you by default (schemaless mode has considerable [downsides](http://www.slideshare.net/lucenerevolution/schemaless-solr-and-the-solr-schema-rest-api/12) anyways). Here you can find steps for doing just that.
+As of 2.0 version of [`django-haystack`](https://github.com/django-haystack/django-haystack), the compatibility layer with Solr backend lacks support for the newest 5.* versions of Solr out of the box. But the two can still happily work together with a few bits of extra configuration.
+
+You just need to tell Solr to lay out the config for your Solr index in the olden way, without that fancy data-driven schemaless mode that is being pushed on you by default (schemaless mode has considerable [downsides](http://www.slideshare.net/lucenerevolution/schemaless-solr-and-the-solr-schema-rest-api/12) anyways). Here you can find steps for doing just that.
 
 You can skip the first step if you already have your Solr-as-a-**service** installed.
 
@@ -17,7 +19,7 @@ sudo bash ./install_solr_service.sh solr-<version>.tgz
 
 ### 2. Create a schema-based Solr core
 
-* `django-haystack` currently only supports Solr indexes based on a schema, which is stored in `schema.xml` file of a Solr core's config, so create a core from the schema-based configuration that is called "basic_configs" and comes predefined with the Solr's installation:
+* `django-haystack` currently only supports Solr indexes based on a schema, which is stored in `schema.xml` file of a Solr core's config, so create a core from the particular schema-based configuration called "basic_configs", which comes predefined with the Solr's installation:
 
 ```sh
 sudo su - solr -c '/opt/solr/bin/solr create -c <core_name> -d basic_configs'
@@ -52,7 +54,7 @@ HAYSTACK_CONNECTIONS = {
 
 ### 5. Make it easy to build Solr schema
 
-* There is no need for manual `schema.xml` copying and Solr restarting whenever you rebuild your schema for `django-haystack` as the schema can be put directly into the core's config and the core can then be reloaded, which is way faster than restarting the server, all with a single command:
+* There is no need for manual `schema.xml` copying and Solr restarting whenever you rebuild your schema for `django-haystack` as the schema can be put directly into the core's config and the core can then be reloaded, which is way faster than restarting the entire server, all with a single command:
 
 ```sh
 python manage.py build_solr_schema --filename=/var/solr/data/<core_name>/conf/schema.xml && curl 'http://localhost:8983/solr/admin/cores?action=RELOAD&core=<core_name>&wt=json&indent=true'
@@ -63,7 +65,7 @@ python manage.py build_solr_schema --filename=/var/solr/data/<core_name>/conf/sc
 
 ### 6. Fix `pysolr.py` if needed
 
-* If you are in 2015, there is a tiny bug in `pysolr` that still isn't fixed, so if you are getting an exception from `pysolr.py` about an argument in `startswith` not being a binary string then, assuming your are running Django in its own virtual environment as you should, you would need to open
+* If you are in 2015 and using some 3.2+ version of `pysolr` for `django-haystack`, there is a tiny bug in `pysolr` that still isn't fixed, so if you are getting an exception from `pysolr.py` about an argument in `startswith` not being a binary string then, assuming your are running Django in its own virtual environment as you should, you would need to open
 
 ```
 <virtual_environment_dir>/lib/python<python_version>/site-packages/pysolr.py
