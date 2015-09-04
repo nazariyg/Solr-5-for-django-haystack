@@ -1,6 +1,6 @@
 As of 2.0 version of [`django-haystack`](https://github.com/django-haystack/django-haystack), the compatibility layer with Solr backend lacks support for the newest 5.* versions of Solr out of the box. But the two can still happily work together with a few bits of extra configuration.
 
-You just need to tell Solr to lay out the config for your Solr index in the olden way, without that fancy data-driven schemaless mode that is being pushed on you by default (it has some considerable [downsides](http://www.slideshare.net/lucenerevolution/schemaless-solr-and-the-solr-schema-rest-api/12) anyways). Here you can find steps for doing just that.
+You just need to tell Solr to lay out the config for your Solr index in the olden way, without that fancy data-driven schemaless mode that is being pushed on you by default. Schemaless mode has some considerable [downsides](http://www.slideshare.net/lucenerevolution/schemaless-solr-and-the-solr-schema-rest-api/12) anyways and won't let you add for example `solr.PhoneticFilterFactory` analyzer to one of your field types as explicitly if you ever decide that you need one.
 
 You can skip the first step if you already have your Solr-as-a-**service** installed.
 
