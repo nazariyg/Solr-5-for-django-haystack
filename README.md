@@ -15,7 +15,7 @@ tar xzf solr-<version>.tgz solr-<version>/bin/install_solr_service.sh --strip-co
 sudo bash ./install_solr_service.sh solr-<version>.tgz
 ```
 
-* Installing Solr as a service lets it start automatically on every system boot.
+* Installing Solr as a service lets it start automatically on every system boot; if required, you can restart the server with `sudo service solr restart`.
 
 ### 2. Create a schema-based Solr core
 
