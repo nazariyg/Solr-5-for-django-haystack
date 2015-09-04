@@ -1,11 +1,11 @@
-As of 2.0 version of `django-haystack`, the compatibility layer with Solr backend lacks support for the newest 5.* version of Solr out of the box. But the two can still happily work together with a few bits of extra configuration. Here you can find steps for doing just that.
+As of 2.0 version of [`django-haystack`](https://github.com/django-haystack/django-haystack), the compatibility layer with Solr backend lacks support for the newest 5.* versions of Solr out of the box. But the two can still happily work together with a few bits of extra configuration. You just need to tell Solr to lay out your index in the olden way, without those fancy data-driven schemaless wonders. Here you can find steps for doing just that.
 
 You can skip the first step if you already have your Solr-as-a-**service** installed.
 
 ### 1. Install Solr as a service
 
 * Install Java if needed.
-* Download the `tgz` file from [Solr Releases](http://www.us.apache.org/dist/lucene/solr/).
+* Download the `.tgz` file from [Solr Releases](http://www.us.apache.org/dist/lucene/solr/).
 * Extract the installation script from the archive and run it:
 
 ```sh
@@ -13,9 +13,9 @@ tar xzf solr-<version>.tgz solr-<version>/bin/install_solr_service.sh --strip-co
 sudo bash ./install_solr_service.sh solr-<version>.tgz
 ```
 
-* When installed as a service, the Solr server will start automatically on every system boot.
+* Installing Solr as a service lets it start automatically on every system boot.
 
-### 2. Create a non-schemaless Solr core
+### 2. Create a schema-based Solr core
 
 * `django-haystack` currently only supports Solr indexes based on a schema, which is stored in `schema.xml` file of a Solr core's config, so create a core from the schema-based configuration that is called "basic_configs" and comes predefined with the Solr's installation:
 
@@ -52,7 +52,7 @@ HAYSTACK_CONNECTIONS = {
 
 ### 5. Make it easy to build Solr schema
 
-* There is no need for manual `schema.xml` copying and Solr restarting whenever you rebuild your schema for `django-haystack` as the schema can be put directly into the core's config and the core can then be reloaded all with a single command:
+* There is no need for manual `schema.xml` copying and Solr restarting whenever you rebuild your schema for `django-haystack` as the schema can be put directly into the core's config and the core can then be reloaded, which is way faster than restarting the server, all with a single command:
 
 ```sh
 python manage.py build_solr_schema --filename=/var/solr/data/<core_name>/conf/schema.xml && curl 'http://localhost:8983/solr/admin/cores?action=RELOAD&core=<core_name>&wt=json&indent=true'
