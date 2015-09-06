@@ -63,6 +63,7 @@ python manage.py build_solr_schema --filename=/var/solr/data/<core_name>/conf/sc
 
 * As before, change `<core_name>` to your Solr core's name.
 * You could also add ` && python manage.py rebuild_index` to the command if you've modified fields in your `SearchIndex` classes and want the changes to get reflected in the index for all model instances regardless of when they were or will be indexed.
+* You could place your other Solr config files under `search_configuration`, such as `solrconfig.xml` or `synonyms.txt`, and sync it all together (with e.g. `rsync --exclude=solr.xml ...`).
 * You will likely need to change the permissions on `/var/solr/data/<core_name>` to more liberal ones for the above line to execute.
 
 ### 6. Fix `pysolr.py` if needed
