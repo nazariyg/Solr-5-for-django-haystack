@@ -65,25 +65,3 @@ python manage.py build_solr_schema --filename=/var/solr/data/<core_name>/conf/sc
 * You could also add ` && python manage.py rebuild_index` to the command if you've modified fields in your `SearchIndex` classes and want the changes to get reflected in the index for all model instances regardless of when they were or will be indexed.
 * You could place your other Solr config files under `search_configuration`, such as `solrconfig.xml` or `synonyms.txt`, and sync it all together (with e.g. `rsync --exclude=solr.xml ...`).
 * You will likely need to change the permissions on `/var/solr/data/<core_name>` to more liberal ones for the above line to execute.
-
-### 6. Fix `pysolr.py` if needed
-
-* If you are in 2015 and using some ~3.2 version of `pysolr` for `django-haystack`, there is a tiny bug in `pysolr` that still isn't fixed, so if you are getting an exception from `pysolr.py` about an argument in `startswith` not being a binary string then, assuming your are running Django in its own virtual environment as you should, you would need to open
-
-```
-<virtual_environment_dir>/lib/python<python_version>/site-packages/pysolr.py
-```
-
-and change
-
-```
-if response.startswith('<?xml'):
-```
-
-on line 445 to
-
-```
-if response.startswith(b'<?xml'):
-```
-
-or better yet, make a pull request.
