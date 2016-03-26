@@ -2,6 +2,35 @@ As of 2.* versions of [`django-haystack`](https://github.com/django-haystack/dja
 
 You just need to tell Solr to lay out the config for your Solr index in the schema-based way, without that fancy data-driven schemaless mode that is being pushed on new Solr users by default. Schemaless mode has some considerable [downsides](http://www.slideshare.net/lucenerevolution/schemaless-solr-and-the-solr-schema-rest-api/12) anyways and won't let you add for example `solr.PhoneticFilterFactory` analyzer to one of your field types as explicitly if you ever decide that you need one. Not to mention that, in the schemaless mode, all fields are suddenly multi-valued.
 
+***
+## If you are a Solr 5.5+ user and Solr is having troubles with its schema:
+
+It seems that there is a new ["managed schema" feature](https://cwiki.apache.org/confluence/display/solr/Managed+Schema+Definition+in+SolrConfig) being introduced. I'm not sure exactly what the implication of this is (it seems to allow the modification of schemas through an API) but it needs to be disabled, otherwise the regular `schema.xml` will not be detected, causing the above error. 
+
+To disable, open the solr config `/usr/local/Cellar/solr/5.5.0/server/solr/MYCORE/conf/solrconfig.xml` and remove the following:
+
+```
+<!--
+    ...
+-->
+<schemaFactory class="ManagedIndexSchemaFactory">
+    <bool name="mutable">true</bool>
+    <str name="managedSchemaResourceName">managed-schema</str>
+</schemaFactory>
+```
+
+Alternatively, I think you can just replace it with:
+
+```
+<schemaFactory class="ManagedIndexSchemaFactory">
+```
+
+Optionally, you can also delete the "managed schema" config file:
+
+    rm -r /usr/local/Cellar/solr/5.5.0/server/solr/MYCORE/conf/managed-schema
+
+***
+
 You can skip the first step if you already have your Solr-as-a-**service** installed.
 
 ### 1. Install Solr as a service
